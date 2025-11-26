@@ -46,6 +46,14 @@ export function NounsAuctionLive() {
     hash,
   });
 
+  // Destructure tuple: [nounId, amount, startTime, endTime, bidder, settled]
+  const nounId = auction?.[0];
+  const amount = auction?.[1];
+  const startTime = auction?.[2];
+  const endTime = auction?.[3];
+  const bidder = auction?.[4];
+  const settled = auction?.[5];
+
   useEffect(() => {
     if (isConfirmed) {
       refetch();
@@ -54,11 +62,11 @@ export function NounsAuctionLive() {
   }, [isConfirmed, refetch]);
 
   useEffect(() => {
-    if (!auction || !auction.endTime) return;
+    if (!endTime) return;
 
     const updateTimeLeft = () => {
       const now = Math.floor(Date.now() / 1000);
-      const end = Number(auction.endTime);
+      const end = Number(endTime);
       const remaining = Math.max(0, end - now);
       setTimeLeft(remaining);
     };
@@ -67,7 +75,7 @@ export function NounsAuctionLive() {
     const interval = setInterval(updateTimeLeft, 1000);
 
     return () => clearInterval(interval);
-  }, [auction]);
+  }, [endTime]);
 
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
@@ -91,8 +99,8 @@ export function NounsAuctionLive() {
     }
   };
 
-  const currentBid = auction ? formatEther(auction.amount as bigint) : '0';
-  const minBid = auction ? formatEther((auction.amount as bigint) + parseEther('0.01')) : '0';
+  const currentBid = amount ? formatEther(amount) : '0';
+  const minBid = amount ? formatEther(amount + parseEther('0.01')) : '0';
 
   return (
     <div className="w-full max-w-4xl mx-auto p-8 space-y-8">
@@ -104,7 +112,7 @@ export function NounsAuctionLive() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <p className="text-sm text-oil-white/60 mb-2">Noun ID</p>
-                <p className="text-2xl font-bold">#{auction.nounId?.toString() || 'N/A'}</p>
+                <p className="text-2xl font-bold">#{nounId?.toString() || 'N/A'}</p>
               </div>
               <div>
                 <p className="text-sm text-oil-white/60 mb-2">Current Bid</p>
