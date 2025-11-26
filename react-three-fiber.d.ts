@@ -1,19 +1,9 @@
-/// <reference types="@react-three/fiber" />
+import { JSX as FiberJSX } from '@react-three/fiber';
 
 declare global {
   namespace JSX {
-    interface IntrinsicElements {
-      ambientLight: any;
-      directionalLight: any;
-      pointLight: any;
-      mesh: any;
-      boxGeometry: any;
-      meshStandardMaterial: any;
-      primitive: any;
-      group: any;
-      perspectiveCamera: any;
-      orbitControls: any;
-    }
+    // Merge @react-three/fiber's IntrinsicElements into the global JSX namespace
+    interface IntrinsicElements extends FiberJSX.IntrinsicElements {}
   }
 }
 
