@@ -50,10 +50,10 @@ export function AudioController({ src, loop = true, volume = 0.3 }: AudioControl
     }
 
     if (isMuted) {
-      soundRef.current.unmute();
+      soundRef.current.mute(false);
       setIsMuted(false);
     } else {
-      soundRef.current.mute();
+      soundRef.current.mute(true);
       setIsMuted(true);
     }
   };
