@@ -1,4 +1,4 @@
-import '@react-three/fiber';
+/// <reference types="@react-three/fiber" />
 
 declare global {
   namespace JSX {
