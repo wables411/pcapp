@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@coinbase/onchainkit": "^1.1.2",
-    "@netlify/plugin-nextjs": "^4.9.0",
     "@rainbow-me/rainbowkit": "^2.1.0",
     "@react-three/drei": "^9.114.0",
     "@react-three/fiber": "^8.17.0",
@@ -26,6 +25,7 @@
     "wagmi": "^2.0.0"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "^5.14.7",
     "@types/howler": "^2.2.11",
     "@types/node": "^20.0.0",
     "@types/react": "^18.3.0",

@@ -27,10 +27,20 @@ const nextConfig = {
       config.resolve.fallback = {
         ...config.resolve.fallback,
         '@react-native-async-storage/async-storage': false,
+        'pino-pretty': false,
       };
       config.resolve.alias = {
         ...config.resolve.alias,
         '@react-native-async-storage/async-storage': false,
+        'pino-pretty': false,
+      };
+    }
+    // Server-side: also ignore these modules
+    if (isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        '@react-native-async-storage/async-storage': false,
+        'pino-pretty': false,
       };
     }
     return config;
