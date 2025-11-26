@@ -15,6 +15,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "types": ["@react-three/fiber"],
     "jsx": "preserve",
     "incremental": true,
     "plugins": [
