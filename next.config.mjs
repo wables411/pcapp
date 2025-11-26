@@ -1,7 +1,3 @@
-import { createRequire } from 'module';
-
-const require = createRequire(import.meta.url);
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -26,36 +22,17 @@ const nextConfig = {
     ],
   },
   webpack: (config, { isServer }) => {
-    // Ensure single React version (fixes ReactCurrentBatchConfig errors)
-    if (!isServer) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        react: require.resolve('react'),
-        'react-dom': require.resolve('react-dom'),
-        '@react-native-async-storage/async-storage': false,
-        'pino-pretty': false,
-      };
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        '@react-native-async-storage/async-storage': false,
-        'pino-pretty': false,
-      };
-    }
-    // Server-side: also ignore these modules
-    if (isServer) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        react: require.resolve('react'),
-        'react-dom': require.resolve('react-dom'),
-        '@react-native-async-storage/async-storage': false,
-        'pino-pretty': false,
-      };
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        '@react-native-async-storage/async-storage': false,
-        'pino-pretty': false,
-      };
-    }
+    // Fix for MetaMask SDK and Pino trying to import browser-incompatible modules
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      '@react-native-async-storage/async-storage': false,
+      'pino-pretty': false,
+    };
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@react-native-async-storage/async-storage': false,
+      'pino-pretty': false,
+    };
     return config;
   },
 };
