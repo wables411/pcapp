@@ -1,10 +1,19 @@
-/// <reference types="@react-three/fiber" />
-
-import type { ThreeElements } from '@react-three/fiber';
+import '@react-three/fiber';
 
 declare global {
   namespace JSX {
-    interface IntrinsicElements extends ThreeElements {}
+    interface IntrinsicElements {
+      ambientLight: any;
+      directionalLight: any;
+      pointLight: any;
+      mesh: any;
+      boxGeometry: any;
+      meshStandardMaterial: any;
+      primitive: any;
+      group: any;
+      perspectiveCamera: any;
+      orbitControls: any;
+    }
   }
 }
 
