@@ -22,21 +22,30 @@ const nextConfig = {
     ],
   },
   webpack: (config, { isServer }) => {
-    // Fix for MetaMask SDK trying to import React Native packages in web
+    // Ensure single React version (fixes ReactCurrentBatchConfig errors)
     if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        react: require.resolve('react'),
+        'react-dom': require.resolve('react-dom'),
         '@react-native-async-storage/async-storage': false,
         'pino-pretty': false,
       };
-      config.resolve.alias = {
-        ...config.resolve.alias,
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
         '@react-native-async-storage/async-storage': false,
         'pino-pretty': false,
       };
     }
     // Server-side: also ignore these modules
     if (isServer) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        react: require.resolve('react'),
+        'react-dom': require.resolve('react-dom'),
+        '@react-native-async-storage/async-storage': false,
+        'pino-pretty': false,
+      };
       config.resolve.fallback = {
         ...config.resolve.fallback,
         '@react-native-async-storage/async-storage': false,
