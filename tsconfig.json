@@ -26,7 +26,8 @@
       "@/*": [
         "./*"
       ]
-    }
+    },
+    "types": ["@react-three/fiber"]
   },
   "include": [
     "next-env.d.ts",
