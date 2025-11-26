@@ -1,5 +1,6 @@
 'use client';
 
+/// <reference path="../react-three-fiber.d.ts" />
 import { Suspense, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
