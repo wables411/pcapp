@@ -1,17 +1,8 @@
 declare global {
   namespace JSX {
-    interface IntrinsicElements {
-      ambientLight: any;
-      directionalLight: any;
-      pointLight: any;
-      mesh: any;
-      boxGeometry: any;
-      meshStandardMaterial: any;
-      primitive: any;
-      group: any;
-      perspectiveCamera: any;
-      orbitControls: any;
-    }
+    // Extend the global JSX.IntrinsicElements with r3f's elements
+    interface IntrinsicElements
+      extends import('@react-three/fiber').JSX.IntrinsicElements {}
   }
 }
 
