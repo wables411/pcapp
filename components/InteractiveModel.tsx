@@ -1,4 +1,4 @@
-/// <reference path="../react-three-fiber.d.ts" />
+/// <reference types="@react-three/fiber" />
 'use client';
 
 import { Suspense, useRef } from 'react';
