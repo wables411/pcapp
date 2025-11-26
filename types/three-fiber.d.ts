@@ -1,2 +1,3 @@
-/// <reference types="@react-three/fiber" />
+// types/three-fiber.d.ts
+import '@react-three/fiber';
 
