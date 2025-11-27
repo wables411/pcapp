@@ -1,5 +1,5 @@
 [build]
-  command = "npm ci --ignore-scripts && npm rebuild --ignore-scripts && npm run build"
+  command = "npm ci --no-optional && npm run build"
   publish = "dist"
 
 [[redirects]]
