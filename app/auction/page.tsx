@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { OilSpillBackground } from '@/components/OilSpillBackground';
 import { WalletConnect } from '@/components/WalletConnect';
 import { AudioController } from '@/components/AudioController';
