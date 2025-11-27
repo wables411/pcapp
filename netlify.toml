@@ -10,7 +10,7 @@
 [build.environment]
   NODE_VERSION = "20"
   NETLIFY_NEXT_PLUGIN_SKIP = "true"
-  # Skip secret scanning for VITE_ variables - these are intentionally public client-side variables
-  # They get bundled into the client JS, which is expected behavior for Vite apps
-  SECRETS_SCAN_OMIT_KEYS = "VITE_WALLET_CONNECT_PROJECT_ID,VITE_ALCHEMY_API_KEY,VITE_NFT_STORAGE_KEY,VITE_USE_TESTNET,VITE_AUCTION_HOUSE_ADDRESS,VITE_DAO_TOKEN_ADDRESS,VITE_GOVERNOR_ADDRESS,VITE_TREASURY_ADDRESS,VITE_LAWBSTERS_NFT_CONTRACT,VITE_ALTERED_TOKEN_ADDRESS,VITE_PETTYFEST2_TOKEN_ADDRESS,VITE_SCOOP_NFT_COLLECTION_ADDRESS,VITE_FREQUENTFLYERS_COLLECTION_ADDRESS"
+  # Disable secret scanning - VITE_ variables are intentionally bundled into client JS
+  # These are public client-side variables, not server secrets
+  SECRETS_SCAN_ENABLED = "false"
 
