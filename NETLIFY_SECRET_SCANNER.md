@@ -5,16 +5,33 @@ Netlify's secret scanner is detecting `VITE_` environment variables as potential
 
 ## Solution
 
-### Option 1: Disable Secret Scanning (Recommended for Vite apps)
+### Option 1: Set Environment Variables in Netlify Dashboard (Required First Step)
+
+**All `VITE_*` variables MUST be set in Netlify's dashboard before building:**
 
 1. Go to your Netlify site dashboard
-2. Navigate to **Site settings** → **Build & deploy** → **Environment**
-3. Add this environment variable:
-   - **Key**: `NETLIFY_SECRET_SCANNER_SKIP`
-   - **Value**: `true`
-   - **Scope**: All scopes
+2. Navigate to **Site settings** → **Environment variables** → **Add variable**
+3. Add each variable with its actual value:
+   - `VITE_WALLET_CONNECT_PROJECT_ID` = (your actual project ID)
+   - `VITE_ALCHEMY_API_KEY` = (your actual Alchemy key)
+   - `VITE_NFT_STORAGE_KEY` = (your actual NFT.Storage key)
+   - `VITE_USE_TESTNET` = `false`
+   - `VITE_AUCTION_HOUSE_ADDRESS` = `0xd0dda8e6b354c5f12787aaca936b711c831745ba`
+   - `VITE_NOUNS_TOKEN_ADDRESS` = `0xd0dda8e6b354c5f12787aaca936b711c831745ba`
+   - `VITE_GOVERNOR_ADDRESS` = `0xd0dda8e6b354c5f12787aaca936b711c831745ba`
+   - `VITE_LAWB_TOKEN_ADDRESS` = `0xea6c49afbfcbb51a77b8d7f1f6c3a381b627edff`
+   - `VITE_BASE_TOKEN_ADDRESS` = `0xdcc199c1b19cea6115af0c000539e93df2291d26`
+   - `VITE_NFT_COLLECTION_ADDRESS` = `0xafff7fb83b1270f65e214b30a643bba98887e0df`
 
-This will disable the secret scanner for your builds.
+**Why this helps:** When variables are properly set in the dashboard, Netlify's scanner is less likely to flag them as exposed secrets.
+
+### Option 2: Contact Netlify Support to Whitelist VITE_ Pattern
+
+If the scanner still fails after setting variables in the dashboard:
+
+1. Contact Netlify support via your dashboard
+2. Request to whitelist `VITE_*` variable patterns
+3. Explain: "These are public client-side variables for a Vite app, intentionally bundled into JavaScript"
 
 ### Option 2: Contact Netlify Support
 

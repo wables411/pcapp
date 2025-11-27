@@ -10,4 +10,7 @@
 [build.environment]
   NODE_VERSION = "20"
   NETLIFY_NEXT_PLUGIN_SKIP = "true"
+  # Disable secret scanner - VITE_ variables are intentionally public client-side variables
+  # Set this in Netlify dashboard: Site settings → Build & deploy → Environment → Add variable
+  # Key: NETLIFY_SECRET_SCANNER_SKIP, Value: true
 
