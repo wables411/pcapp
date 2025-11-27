@@ -58,7 +58,6 @@ function GovernanceTab() {
 
       for (let i = Number(proposalCount); i > 0 && i > Number(proposalCount) - 20; i--) {
         try {
-          const proposal = await fetch(`/api/proposal/${i}`).catch(() => null)
           // In real implementation, fetch from contract
           proposalList.push({
             id: i,
@@ -150,13 +149,13 @@ function GovernanceTab() {
         </button>
       </div>
 
-      {quorumVotes && (
+      {quorumVotes && typeof quorumVotes === 'bigint' ? (
         <div className="neon-border rounded-lg p-4 bg-black/50 backdrop-blur-sm mb-6">
           <p className="text-sm text-gray-400 font-body">
             Quorum Required: <span className="text-neon-green font-mono">{formatEther(quorumVotes)} votes</span>
           </p>
         </div>
-      )}
+      ) : null}
 
       <div className="space-y-4">
         {proposals.map((proposal) => (
@@ -191,11 +190,11 @@ function GovernanceTab() {
                 <div className="h-48 mb-4">
                   <Canvas>
                     <Suspense fallback={null}>
-                      <Proposal3D
-                        forVotes={Number(proposal.forVotes)}
-                        againstVotes={Number(proposal.againstVotes)}
-                        abstainVotes={Number(proposal.abstainVotes)}
-                      />
+                  <Proposal3D
+                    forVotes={Number(proposal.forVotes || 0n)}
+                    againstVotes={Number(proposal.againstVotes || 0n)}
+                    abstainVotes={Number(proposal.abstainVotes || 0n)}
+                  />
                     </Suspense>
                   </Canvas>
                 </div>
@@ -203,15 +202,15 @@ function GovernanceTab() {
                 <div className="space-y-2 mb-4">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-400 font-body">For</span>
-                    <span className="text-neon-green font-mono">{formatEther(proposal.forVotes)}</span>
+                    <span className="text-neon-green font-mono">{formatEther(proposal.forVotes || 0n)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-400 font-body">Against</span>
-                    <span className="text-red-400 font-mono">{formatEther(proposal.againstVotes)}</span>
+                    <span className="text-red-400 font-mono">{formatEther(proposal.againstVotes || 0n)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-400 font-body">Abstain</span>
-                    <span className="text-yellow-400 font-mono">{formatEther(proposal.abstainVotes)}</span>
+                    <span className="text-yellow-400 font-mono">{formatEther(proposal.abstainVotes || 0n)}</span>
                   </div>
                 </div>
 

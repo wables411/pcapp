@@ -8,7 +8,7 @@ interface NFTPreview3DProps {
   tokenId: string
 }
 
-function NFTPreview3D({ imageUrl, tokenId }: NFTPreview3DProps) {
+function NFTPreview3D({ imageUrl }: NFTPreview3DProps) {
   const meshRef = useRef<Mesh>(null)
   const [hovered, setHovered] = useState(false)
   const texture = useLoader(TextureLoader, imageUrl)

@@ -5,7 +5,6 @@ import { Canvas } from '@react-three/fiber'
 import { Suspense } from 'react'
 import { config } from '@/lib/config'
 import NounsTokenABI from '@/abi/NounsToken.json'
-import ERC721ABI from '@/abi/ERC721.json'
 import NFTPreview3D from '@/components/3d/NFTPreview3D'
 import LoadingSkeleton from '@/components/LoadingSkeleton'
 import MintButton from '@/components/MintButton'
@@ -20,7 +19,6 @@ function GalleryTab() {
   const [nfts, setNfts] = useState<NFT[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedNFT, setSelectedNFT] = useState<NFT | null>(null)
-  const [page, setPage] = useState(0)
   const { address } = useAccount()
 
   const { data: totalSupply } = useReadContract({

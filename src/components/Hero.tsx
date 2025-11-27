@@ -1,7 +1,6 @@
-import { ConnectButton } from '@coinbase/onchainkit'
+import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { useAccount, useBalance } from 'wagmi'
 import { formatEther } from 'viem'
-import { config } from '@/lib/config'
 import Hero3D from './3d/Hero3D'
 
 function Hero() {

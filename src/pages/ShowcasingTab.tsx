@@ -1,12 +1,10 @@
-import { useState } from 'react'
 import { useReadContract } from 'wagmi'
-import { formatEther, formatUnits } from 'viem'
+import { formatUnits } from 'viem'
 import { motion } from 'framer-motion'
 import { config } from '@/lib/config'
 import ERC20ABI from '@/abi/ERC20.json'
 
 function ShowcasingTab() {
-  const [activeCard, setActiveCard] = useState<number | null>(null)
 
   const { data: lawbSupply } = useReadContract({
     address: config.contracts.lawbToken as `0x${string}`,
@@ -58,12 +56,10 @@ function ShowcasingTab() {
       <h2 className="text-4xl font-heading font-bold neon-text mb-8">Showcase</h2>
 
       <div className="grid md:grid-cols-2 gap-6">
-        {cards.map((card, index) => (
+        {cards.map((card) => (
           <motion.div
             key={card.id}
             whileHover={{ scale: 1.02, rotateY: 2 }}
-            onHoverStart={() => setActiveCard(card.id)}
-            onHoverEnd={() => setActiveCard(null)}
             className="neon-border rounded-lg overflow-hidden bg-black/50 backdrop-blur-sm ripple"
           >
             {card.type === 'website' && card.iframe ? (
@@ -87,7 +83,7 @@ function ShowcasingTab() {
                       </p>
                       <p className="text-2xl font-mono text-neon-green">
                         {card.supply
-                          ? formatUnits(card.supply, 18)
+                          ? formatUnits(card.supply as bigint, 18)
                           : 'Loading...'}
                       </p>
                     </div>

@@ -4,7 +4,6 @@ import { formatEther, parseEther } from 'viem'
 import { toast } from 'sonner'
 import { config } from '@/lib/config'
 import NounsAuctionHouseABI from '@/abi/NounsAuctionHouse.json'
-import NounsTokenABI from '@/abi/NounsToken.json'
 import LoadingSkeleton from '@/components/LoadingSkeleton'
 
 function BiddingTab() {
@@ -17,11 +16,6 @@ function BiddingTab() {
     functionName: 'auction',
   })
 
-  const { data: reservePrice } = useReadContract({
-    address: config.contracts.auctionHouse as `0x${string}`,
-    abi: NounsAuctionHouseABI,
-    functionName: 'reservePrice',
-  })
 
   const { data: minBidIncrement } = useReadContract({
     address: config.contracts.auctionHouse as `0x${string}`,
@@ -44,11 +38,11 @@ function BiddingTab() {
   }, [isSuccess, refetchAuction])
 
   useEffect(() => {
-    if (!auction || !auction.endTime) return
+    if (!auction || typeof auction !== 'object' || !('endTime' in auction)) return
 
     const updateTimer = () => {
       const now = Math.floor(Date.now() / 1000)
-      const remaining = Number(auction.endTime) - now
+      const remaining = Number((auction as any).endTime) - now
       setTimeLeft(Math.max(0, remaining))
     }
 
@@ -64,7 +58,7 @@ function BiddingTab() {
       return
     }
 
-    const currentBid = auction?.amount ? parseFloat(formatEther(auction.amount)) : 0
+    const currentBid = auction && typeof auction === 'object' && 'amount' in auction && auction.amount ? parseFloat(formatEther(auction.amount as bigint)) : 0
     const minBid = currentBid * (1 + (minBidIncrement ? Number(minBidIncrement) / 100 : 0.05))
 
     if (parseFloat(bidAmount) < minBid) {
@@ -92,11 +86,12 @@ function BiddingTab() {
     return `${secs}s`
   }
 
-  if (!auction) {
+  if (!auction || typeof auction !== 'object') {
     return <LoadingSkeleton />
   }
 
-  const currentBid = auction.amount ? parseFloat(formatEther(auction.amount)) : 0
+  const auctionData = auction as any
+  const currentBid = auctionData.amount ? parseFloat(formatEther(auctionData.amount)) : 0
   const minBid = currentBid * (1 + (minBidIncrement ? Number(minBidIncrement) / 100 : 0.05))
 
   return (
@@ -109,7 +104,7 @@ function BiddingTab() {
             <div className="mb-4">
               <p className="text-sm text-gray-400 font-body mb-1">Token ID</p>
               <p className="text-2xl font-heading font-bold text-neon-green">
-                #{auction.nounId?.toString() || '0'}
+                #{(auctionData.nounId as bigint)?.toString() || '0'}
               </p>
             </div>
 
@@ -127,11 +122,11 @@ function BiddingTab() {
               </p>
             </div>
 
-            {auction.bidder && auction.bidder !== '0x0000000000000000000000000000000000000000' && (
+            {auctionData.bidder && auctionData.bidder !== '0x0000000000000000000000000000000000000000' && (
               <div className="mb-4">
                 <p className="text-sm text-gray-400 font-body mb-1">Bidder</p>
                 <p className="text-sm font-mono text-neon-green break-all">
-                  {auction.bidder}
+                  {auctionData.bidder}
                 </p>
               </div>
             )}

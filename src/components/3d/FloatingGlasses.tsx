@@ -1,7 +1,6 @@
 import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Mesh } from 'three'
-import * as THREE from 'three'
 
 function FloatingGlasses() {
   const glassesRef = useRef<Mesh[]>([])
