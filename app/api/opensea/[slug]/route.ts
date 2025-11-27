@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// Force dynamic rendering to prevent build-time errors
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
@@ -17,7 +21,10 @@ export async function GET(
       headers['X-API-KEY'] = apiKey;
     }
 
-    const response = await fetch(url, { headers });
+    const response = await fetch(url, { 
+      headers,
+      cache: 'no-store', // Disable caching to prevent build-time issues
+    });
 
     if (!response.ok) {
       throw new Error(`OpenSea API error: ${response.status}`);

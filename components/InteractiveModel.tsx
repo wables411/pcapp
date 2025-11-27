@@ -1,16 +1,10 @@
+/// <reference types="@react-three/fiber" />
 'use client';
 
 import { Suspense, useRef } from 'react';
-import { Canvas, useFrame, ThreeElements } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import * as THREE from 'three';
-
-// Explicitly extend JSX namespace for this file
-declare global {
-  namespace JSX {
-    interface IntrinsicElements extends ThreeElements {}
-  }
-}
 
 function Model() {
   const meshRef = useRef<THREE.Mesh>(null);
